@@ -16,7 +16,7 @@ TrueValidator is an industry-leading email validation service designed to improv
 
 Follow these steps to begin using TrueValidator:
 
-1. **Sign Up**: Create an account on [truevalidator.com](https://truevalidator.com) to get your API key.
+1. **Sign Up**: Create an account on [truevalidator.net](https://truevalidator.net) to get your API key.
 2. **Set Up Client**: Integrate TrueValidator into your application using our provided SDKs or API examples.
 3. **Validate Emails**: Start validating emails with our real-time and batch endpoints.
 
@@ -66,7 +66,7 @@ app.post('/webhook/validation', (req, res) => {
 
 ## 📚 Documentation
 
-For complete API documentation including authentication, endpoints, response formats, and example integrations, visit our [API Docs](https://truevalidator.com/docs).
+For complete API documentation including authentication, endpoints, response formats, and example integrations, visit our [API Docs](https://truevalidator.net/docs).
 
 ## 💰 Pricing
 
@@ -119,8 +119,8 @@ Choose a plan that suits your business:
 
 For help with API integration or general questions:
 
-* 📧 Email: [support@truevalidator.com](mailto:support@truevalidator.com)
-* 💬 Join our [Developer Community](https://truevalidator.com/community)
+* 📧 Email: [support@truevalidator.net](mailto:support@truevalidator.net)
+* 💬 Join our [Developer Community](https://truevalidator.net/community)
 
 ## ✅ Conclusion
 
@@ -128,7 +128,7 @@ TrueValidator is your complete solution for email validation. Whether you're loo
 
 ---
 
-**Start your free trial today at [truevalidator.com](https://truevalidator.com)**
+**Start your free trial today at [truevalidator.net](https://truevalidator.net)**
 
 ```
 

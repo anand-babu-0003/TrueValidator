@@ -33,15 +33,6 @@ console.log(result);
 }
 */`;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const batchValidationCode = `// Batch validation
-const emails = [
-  'user1@example.com',
-  'invalid@example..com',
-  'disposable@tempmail.com'
-];
-
-const results = await client.validateBatch(emails);`;
 
 const webhookCode = `// Set up a webhook to receive validation results
 app.post('/webhook/validation', (req, res) => {

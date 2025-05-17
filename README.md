@@ -1,9 +1,9 @@
-Here’s the full **README.md** code block you can copy and use directly in your project:
+Thanks for the update! Here's the revised **README.md** code with the corrected project name: **TrueValidator**.
 
 ````markdown
-# ZeroValidate
+# TrueValidator
 
-ZeroValidate is an industry-leading email validation service designed to improve email deliverability and protect sender reputation. It provides businesses with the tools necessary to maintain clean email lists, reduce bounce rates, and enhance the effectiveness of their email marketing campaigns.
+TrueValidator is an industry-leading email validation service designed to improve email deliverability and protect sender reputation. It provides businesses with the tools necessary to maintain clean email lists, reduce bounce rates, and enhance the effectiveness of their email marketing campaigns.
 
 ## 🚀 Key Features
 
@@ -16,10 +16,10 @@ ZeroValidate is an industry-leading email validation service designed to improve
 
 ## 🛠 Getting Started
 
-Follow these steps to begin using ZeroValidate:
+Follow these steps to begin using TrueValidator:
 
-1. **Sign Up**: Create an account on [zerovalidate.com](https://zerovalidate.com) to get your API key.
-2. **Set Up Client**: Integrate ZeroValidate into your application using our provided SDKs or API examples.
+1. **Sign Up**: Create an account on [truevalidator.com](https://truevalidator.com) to get your API key.
+2. **Set Up Client**: Integrate TrueValidator into your application using our provided SDKs or API examples.
 3. **Validate Emails**: Start validating emails with our real-time and batch endpoints.
 
 ## 📦 Installation
@@ -36,8 +36,8 @@ npm install
 
 ```javascript
 // Node.js example
-const ZeroValidate = require('zerovalidate');
-const client = new ZeroValidate('your_api_key_here');
+const TrueValidator = require('truevalidator');
+const client = new TrueValidator('your_api_key_here');
 ```
 
 ### Validate a Single Email
@@ -68,7 +68,7 @@ app.post('/webhook/validation', (req, res) => {
 
 ## 📚 Documentation
 
-For complete API documentation including authentication, endpoints, response formats, and example integrations, visit our [API Docs](https://zerovalidate.com/docs).
+For complete API documentation including authentication, endpoints, response formats, and example integrations, visit our [API Docs](https://truevalidator.com/docs).
 
 ## 💰 Pricing
 
@@ -84,7 +84,7 @@ Choose a plan that suits your business:
   You can purchase extra validations or upgrade your plan.
 
 * **How accurate is your validation?**
-  ZeroValidate provides 99.9% accuracy.
+  TrueValidator provides 99.9% accuracy.
 
 * **Is there a free trial?**
   Yes! A 7-day free trial is available on all plans.
@@ -121,18 +121,18 @@ Choose a plan that suits your business:
 
 For help with API integration or general questions:
 
-* 📧 Email: [support@zerovalidate.com](mailto:support@zerovalidate.com)
-* 💬 Join our [Developer Community](https://zerovalidate.com/community)
+* 📧 Email: [support@truevalidator.com](mailto:support@truevalidator.com)
+* 💬 Join our [Developer Community](https://truevalidator.com/community)
 
 ## ✅ Conclusion
 
-ZeroValidate is your complete solution for email validation. Whether you're looking to clean up your mailing lists, reduce bounce rates, or integrate real-time validation into your forms — we provide the tools and documentation to make it easy and effective.
+TrueValidator is your complete solution for email validation. Whether you're looking to clean up your mailing lists, reduce bounce rates, or integrate real-time validation into your forms — we provide the tools and documentation to make it easy and effective.
 
 ---
 
-**Start your free trial today at [zerovalidate.com](https://zerovalidate.com)**
+**Start your free trial today at [truevalidator.com](https://truevalidator.com)**
 
 ```
 
-Let me know if you want to include badges, deployment instructions, or a contribution guide as well!
+Let me know if you also want to generate a `package.json`, license file, or contributor guide for this project!
 ```

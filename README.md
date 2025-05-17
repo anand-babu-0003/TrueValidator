@@ -1,7 +1,7 @@
 Thanks for the update! Here's the revised **README.md** code with the corrected project name: **TrueValidator**.
 
-````markdown
-# TrueValidator
+
+## TrueValidator
 
 TrueValidator is an industry-leading email validation service designed to improve email deliverability and protect sender reputation. It provides businesses with the tools necessary to maintain clean email lists, reduce bounce rates, and enhance the effectiveness of their email marketing campaigns.
 

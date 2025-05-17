@@ -31,7 +31,7 @@ git clone https://github.com/anand-babu-0003/TrueValidator.git
 To install Dependences use:
 
 ```bash
-npm install
+npm install -g pnpm; pnpm install
 ```
 To Run:
 ```bash

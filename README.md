@@ -22,16 +22,20 @@ To start using TrueValidator, follow these steps:
 
 ## 📦 Installation
 
-Install the TrueValidator SDK and its dependencies:
+Clone the Repo by using :
 
 ```bash
-npm install truevalidator
+git clone https://github.com/anand-babu-0003/TrueValidator.git
 ```
 
-Or, if you prefer using yarn:
+To install Dependences use:
 
 ```bash
-yarn add truevalidator
+npm install
+```
+To Run:
+```bash
+npm run dev
 ```
 
 ## ⚙️ Usage

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle, ArrowRight } from 'lucide-react';
-import EmailValidator from '../ui/EmailValidator';
 
 const HeroSection: React.FC = () => {
   const [email, setEmail] = useState('');

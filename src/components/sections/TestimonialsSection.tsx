@@ -4,7 +4,7 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    content: "ZeroValidate has transformed our email marketing. We've seen a 35% reduction in bounces and significantly improved our deliverability rates.",
+    content: "TrueValidator has transformed our email marketing. We've seen a 35% reduction in bounces and significantly improved our deliverability rates.",
     author: "Sarah Johnson",
     title: "Marketing Director, TechCorp",
     avatar: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=1600"

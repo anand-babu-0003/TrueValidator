@@ -12,8 +12,8 @@ import {
 
 // Code samples
 const apiKeySetupCode = `// Node.js example
-const ZeroValidate = require('zerovalidate');
-const client = new ZeroValidate('YOUR_API_KEY');`;
+const TrueValidator = require('TrueValidator');
+const client = new TrueValidator('YOUR_API_KEY');`;
 
 const singleValidationCode = `// Validate a single email
 const result = await client.validate('user@example.com');
@@ -143,10 +143,10 @@ const DocsPage: React.FC = () => {
           </h2>
           <div className="prose prose-lg max-w-none">
             <p>
-              The ZeroValidate API provides a reliable way to validate email addresses in real-time. Our API checks multiple aspects of an email address, including syntax validation, domain validation, MX record verification, and more.
+              The TrueValidator API provides a reliable way to validate email addresses in real-time. Our API checks multiple aspects of an email address, including syntax validation, domain validation, MX record verification, and more.
             </p>
             <p>
-              The API is RESTful and returns responses in JSON format. Requests can be made using HTTPS GET or POST methods, and all API endpoints are available on <code>https://api.zerovalidate.com/v1/</code>.
+              The API is RESTful and returns responses in JSON format. Requests can be made using HTTPS GET or POST methods, and all API endpoints are available on <code>https://api.TrueValidator.com/v1/</code>.
             </p>
             <h3>Features</h3>
             <ul>
@@ -176,7 +176,7 @@ const DocsPage: React.FC = () => {
               1. Get Your API Key
             </h3>
             <p className="text-gray-600 mb-6">
-              Sign up for an account at ZeroValidate and get your API key from the dashboard.
+              Sign up for an account at TrueValidator and get your API key from the dashboard.
             </p>
             
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -398,7 +398,7 @@ const DocsPage: React.FC = () => {
                   <Terminal size={20} className="mr-2 text-blue-600" />
                   JavaScript / Node.js
                 </h4>
-                <p className="text-gray-600">npm install zerovalidate</p>
+                <p className="text-gray-600">npm install TrueValidator</p>
               </a>
               
               <a href="#" className="block p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -406,7 +406,7 @@ const DocsPage: React.FC = () => {
                   <Terminal size={20} className="mr-2 text-blue-600" />
                   Python
                 </h4>
-                <p className="text-gray-600">pip install zerovalidate</p>
+                <p className="text-gray-600">pip install TrueValidator</p>
               </a>
               
               <a href="#" className="block p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -414,7 +414,7 @@ const DocsPage: React.FC = () => {
                   <Terminal size={20} className="mr-2 text-blue-600" />
                   PHP
                 </h4>
-                <p className="text-gray-600">composer require zerovalidate/zerovalidate</p>
+                <p className="text-gray-600">composer require TrueValidator/TrueValidator</p>
               </a>
               
               <a href="#" className="block p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -422,7 +422,7 @@ const DocsPage: React.FC = () => {
                   <Terminal size={20} className="mr-2 text-blue-600" />
                   Ruby
                 </h4>
-                <p className="text-gray-600">gem install zerovalidate</p>
+                <p className="text-gray-600">gem install TrueValidator</p>
               </a>
               
               <a href="#" className="block p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -438,7 +438,7 @@ const DocsPage: React.FC = () => {
                   <Terminal size={20} className="mr-2 text-blue-600" />
                   Go
                 </h4>
-                <p className="text-gray-600">go get github.com/zerovalidate/zerovalidate</p>
+                <p className="text-gray-600">go get github.com/TrueValidator/TrueValidator</p>
               </a>
             </div>
           </div>

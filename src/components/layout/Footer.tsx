@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           <div>
             <div className="flex items-center">
               <Logo />
-              <span className="ml-2 text-xl font-bold text-white">ZeroValidate</span>
+              <span className="ml-2 text-xl font-bold text-white">TrueValidator</span>
             </div>
             <p className="mt-4 text-gray-400">
               Industry-leading email validation service. Reduce bounces and improve your sender reputation.
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Mail size={20} className="mr-2 mt-1 text-gray-400" />
-                <span className="text-gray-400">contact@zerovalidate.com</span>
+                <span className="text-gray-400">contact@TrueValidator.com</span>
               </li>
               <li className="flex items-start">
                 <Phone size={20} className="mr-2 mt-1 text-gray-400" />
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400">
-              &copy; {currentYear} ZeroValidate. All rights reserved.
+              &copy; {currentYear} TrueValidator. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">

@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
               <Logo />
-              <span className="ml-2 text-xl font-bold text-blue-600">ZeroValidate</span>
+              <span className="ml-2 text-xl font-bold text-blue-600">TrueValidator</span>
             </Link>
           </div>
           

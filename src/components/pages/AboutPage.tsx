@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              About ZeroValidate
+              About TrueValidator
             </motion.h1>
             <motion.p 
               className="mt-4 text-xl text-gray-600"
@@ -102,7 +102,7 @@ const AboutPage: React.FC = () => {
               </h2>
               <div className="prose prose-lg">
                 <p>
-                  ZeroValidate was founded in 2018 by Sarah Johnson and Michael Chen, who recognized a critical gap in the market for accurate, reliable email validation services.
+                  TrueValidator was founded in 2018 by Sarah Johnson and Michael Chen, who recognized a critical gap in the market for accurate, reliable email validation services.
                 </p>
                 <p>
                   After experiencing firsthand the challenges of poor email deliverability in their previous roles at a major marketing firm, they set out to build a solution that would help businesses maintain clean email lists and improve their sender reputation.
@@ -111,7 +111,7 @@ const AboutPage: React.FC = () => {
                   What began as a simple validation tool quickly evolved into a comprehensive platform that now serves over 15,000 businesses worldwide, from startups to Fortune 500 companies.
                 </p>
                 <p>
-                  Today, ZeroValidate is recognized as an industry leader in email validation technology, with a commitment to innovation, accuracy, and exceptional customer service.
+                  Today, TrueValidator is recognized as an industry leader in email validation technology, with a commitment to innovation, accuracy, and exceptional customer service.
                 </p>
               </div>
             </motion.div>
@@ -178,7 +178,7 @@ const AboutPage: React.FC = () => {
               Our Leadership Team
             </h2>
             <p className="mt-4 text-xl text-gray-600">
-              Meet the people behind ZeroValidate's innovation and success
+              Meet the people behind TrueValidator's innovation and success
             </p>
           </div>
           
@@ -309,7 +309,7 @@ const AboutPage: React.FC = () => {
               </h2>
               <div className="prose prose-lg">
                 <p>
-                  We're always looking for talented individuals to join our growing team. At ZeroValidate, you'll work on challenging problems, learn from industry experts, and make a real impact.
+                  We're always looking for talented individuals to join our growing team. At TrueValidator, you'll work on challenging problems, learn from industry experts, and make a real impact.
                 </p>
                 <p>
                   We offer competitive compensation, flexible work arrangements, and a supportive, inclusive environment where your contributions are valued and recognized.
@@ -351,7 +351,7 @@ const AboutPage: React.FC = () => {
               Contact Us
             </h2>
             <p className="mt-4 text-xl text-gray-600">
-              Have questions or want to learn more about ZeroValidate?
+              Have questions or want to learn more about TrueValidator?
             </p>
           </div>
           
@@ -412,7 +412,7 @@ const AboutPage: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h4 className="font-medium text-gray-900 mb-2">Email</h4>
-                    <p className="text-blue-600">contact@zerovalidate.com</p>
+                    <p className="text-blue-600">contact@TrueValidator.com</p>
                   </div>
                   
                   <div>

@@ -64,7 +64,7 @@ const HeroSection: React.FC = () => {
                 href="#" 
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
               >
-                Start Free Trial
+                Start Free Trial hhhh
                 <ArrowRight size={20} className="ml-2" />
               </a>
               <a href="#demo" className="mt-4 sm:mt-0 sm:ml-4 text-blue-600 font-medium flex items-center justify-center hover:text-blue-800 transition-colors">

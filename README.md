@@ -1,5 +1,3 @@
-Thanks for the update! Here's the revised **README.md** code with the corrected project name: **TrueValidator**.
-
 
 ## TrueValidator
 

@@ -145,7 +145,7 @@ TrueValidator is your all-in-one solution for email validation. Whether you need
 
 **Start your free trial today at [truevalidator.net](https://truevalidator.net) and experience the difference!**
 
-```
+
 Want to contribute? Let us know if you need a `package.json`, license file, or contributor guide for this project!
-```
+
 

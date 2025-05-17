@@ -11,29 +11,24 @@ import {
 
 const teamMembers = [
   {
-    name: 'Sarah Johnson',
-    title: 'CEO & Co-Founder',
-    image: 'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    name: 'Venket',
+    title: 'Founder & CEO',
+    image: '',
     bio: 'Former marketing executive with 15+ years of experience in email deliverability.'
   },
   {
-    name: 'Michael Chen',
-    title: 'CTO & Co-Founder',
-    image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    name: 'Anand',
+    title: 'Debeloper ',
+    image: '',
     bio: 'Tech innovator with background in data analytics and machine learning.'
   },
   {
-    name: 'Jessica Williams',
-    title: 'Head of Product',
-    image: 'https://images.pexels.com/photos/3936894/pexels-photo-3936894.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    name: 'Shalini',
+    title: 'Co-Developer',
+    image: '',
     bio: 'Product specialist focused on creating intuitive, powerful validation solutions.'
   },
-  {
-    name: 'David Rodriguez',
-    title: 'Lead Engineer',
-    image: 'https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    bio: 'Full-stack developer specializing in scalable API architecture and performance.'
-  }
+  
 ];
 
 const values = [

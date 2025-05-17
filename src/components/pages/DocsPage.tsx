@@ -33,6 +33,7 @@ console.log(result);
 }
 */`;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const batchValidationCode = `// Batch validation
 const emails = [
   'user1@example.com',

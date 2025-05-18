@@ -6,12 +6,14 @@ import DocsPage from './components/pages/DocsPage';
 import AboutPage from './components/pages/AboutPage';
 import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
+import DashboardPage from './components/pages/DashboardPage';
 import Layout from './components/layout/Layout';
 import { useAuthStore } from './store/authStore';
 import { supabase } from './lib/supabase';
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -36,8 +38,18 @@ function App() {
         <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
         <Route path="/docs" element={<Layout><DocsPage /></Layout>} />
         <Route path="/about" element={<Layout><AboutPage /></Layout>} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route 
+          path="/signup" 
+          element={user ? <Navigate to="/dashboard" replace /> : <SignupPage />} 
+        />
+        <Route 
+          path="/login" 
+          element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} 
+        />
+        <Route 
+          path="/dashboard" 
+          element={user ? <DashboardPage /> : <Navigate to="/login" replace />} 
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

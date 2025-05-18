@@ -9,9 +9,10 @@ interface AuthState {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   setUser: (user: User | null) => void;
+  updateProfile: (data: { full_name?: string; avatar_url?: string }) => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   loading: true,
   signUp: async (email: string, password: string, name: string) => {
@@ -41,4 +42,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ user: null });
   },
   setUser: (user) => set({ user, loading: false }),
+  updateProfile: async (data) => {
+    const user = get().user;
+    if (!user) throw new Error('No user logged in');
+
+    const { error } = await supabase
+      .from('profiles')
+      .update(data)
+      .eq('id', user.id);
+
+    if (error) throw error;
+  },
 }));

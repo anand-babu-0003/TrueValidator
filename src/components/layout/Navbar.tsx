@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import Logo from '../ui/Logo';
+import { useAuthStore } from '../../store/authStore';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const user = useAuthStore((state) => state.user);
+  const signOut = useAuthStore((state) => state.signOut);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,12 +58,23 @@ const Navbar: React.FC = () => {
             <Link to="/about" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
               About
             </Link>
-            <Link 
-              to="/signup" 
-              className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <>
+                <Link 
+                  to="/dashboard" 
+                  className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
+                >
+                  Dashboard
+                </Link>
+              </>
+            ) : (
+              <Link 
+                to="/signup" 
+                className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
+              >
+                Get Started
+              </Link>
+            )}
           </div>
           
           <div className="flex md:hidden items-center">
@@ -101,12 +115,23 @@ const Navbar: React.FC = () => {
             >
               About
             </Link>
-            <Link 
-              to="/signup" 
-              className="block w-full text-center bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <>
+                <Link 
+                  to="/dashboard" 
+                  className="block w-full text-center bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
+                >
+                  Dashboard
+                </Link>
+              </>
+            ) : (
+              <Link 
+                to="/signup" 
+                className="block w-full text-center bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md font-medium transition-colors"
+              >
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
       )}

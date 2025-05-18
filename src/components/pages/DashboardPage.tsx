@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, FileText, Upload, Settings, LogOut } from 'lucide-react';
+import { User, FileText, Upload, Settings, LogOut, CheckCircle, XCircle } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 
@@ -27,6 +27,10 @@ const DashboardPage: React.FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [fileHistory, setFileHistory] = useState<FileHistory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -69,6 +73,108 @@ const DashboardPage: React.FC = () => {
       navigate('/login');
     } catch (error) {
       console.error('Error signing out:', error);
+    }
+  };
+
+  const processCSV = async (file: File) => {
+    const reader = new FileReader();
+    
+    reader.onload = async (e) => {
+      const text = e.target?.result as string;
+      const lines = text.split('\n');
+      const emails = lines
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+      
+      const totalEmails = emails.length;
+      const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const validEmails = emails.filter(email => validEmailRegex.test(email)).length;
+      
+      try {
+        const { error } = await supabase
+          .from('file_history')
+          .insert({
+            user_id: user?.id,
+            filename: file.name,
+            status: 'completed',
+            total_emails: totalEmails,
+            valid_emails: validEmails,
+            invalid_emails: totalEmails - validEmails
+          });
+
+        if (error) throw error;
+
+        // Refresh file history
+        const { data: historyData } = await supabase
+          .from('file_history')
+          .select('*')
+          .eq('user_id', user?.id)
+          .order('processed_at', { ascending: false });
+
+        setFileHistory(historyData || []);
+      } catch (error) {
+        console.error('Error processing file:', error);
+      }
+    };
+
+    reader.readAsText(file);
+  };
+
+  const handleFileUpload = async (file: File) => {
+    if (!file || !file.name.toLowerCase().endsWith('.csv')) {
+      alert('Please upload a CSV file');
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    try {
+      // Simulate upload progress
+      const interval = setInterval(() => {
+        setUploadProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(interval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 200);
+
+      await processCSV(file);
+
+      // Complete the progress bar
+      clearInterval(interval);
+      setUploadProgress(100);
+      setTimeout(() => {
+        setUploading(false);
+        setUploadProgress(0);
+      }, 500);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploading(false);
+      setUploadProgress(0);
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      await handleFileUpload(file);
     }
   };
 
@@ -139,7 +245,28 @@ const DashboardPage: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Upload CSV File
               </h3>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+              <div
+                className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                  dragActive 
+                    ? 'border-blue-500 bg-blue-50' 
+                    : 'border-gray-300 hover:border-blue-400'
+                }`}
+                onDragEnter={handleDrag}
+                onDragLeave={handleDrag}
+                onDragOver={handleDrag}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".csv"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleFileUpload(file);
+                  }}
+                />
                 <Upload size={40} className="mx-auto text-gray-400 mb-4" />
                 <p className="text-gray-600 mb-4">
                   Drag and drop your CSV file here, or click to browse
@@ -147,6 +274,20 @@ const DashboardPage: React.FC = () => {
                 <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   Select File
                 </button>
+
+                {uploading && (
+                  <div className="mt-4">
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div
+                        className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+                        style={{ width: `${uploadProgress}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Uploading... {uploadProgress}%
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -181,7 +322,7 @@ const DashboardPage: React.FC = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {fileHistory.map((file) => (
-                        <tr key={file.id}>
+                        <tr key={file.id} className="hover:bg-gray-50">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <FileText size={20} className="text-gray-400 mr-2" />
@@ -202,8 +343,17 @@ const DashboardPage: React.FC = () => {
                               {file.status}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                            {file.valid_emails} valid / {file.invalid_emails} invalid
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex items-center text-green-600">
+                                <CheckCircle size={16} className="mr-1" />
+                                <span>{file.valid_emails} valid</span>
+                              </div>
+                              <div className="flex items-center text-red-600">
+                                <XCircle size={16} className="mr-1" />
+                                <span>{file.invalid_emails} invalid</span>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       ))}

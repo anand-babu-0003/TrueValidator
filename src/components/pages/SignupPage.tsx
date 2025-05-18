@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, AlertCircle, X } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 
 const SignupPage: React.FC = () => {
@@ -39,7 +39,14 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pt-24">
-      <div className="max-w-md mx-auto px-4 sm:px-6 py-12">
+      <div className="max-w-md mx-auto px-4 sm:px-6 py-12 relative">
+        <button
+          onClick={() => navigate('/')}
+          className="absolute top-0 right-6 text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <X size={24} />
+        </button>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -7,6 +7,7 @@ import AboutPage from './components/pages/AboutPage';
 import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
 import DashboardPage from './components/pages/DashboardPage';
+import ProfileSettingsPage from './components/pages/ProfileSettingsPage';
 import Layout from './components/layout/Layout';
 import { useAuthStore } from './store/authStore';
 import { supabase } from './lib/supabase';
@@ -49,6 +50,10 @@ function App() {
         <Route 
           path="/dashboard" 
           element={user ? <DashboardPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/settings/profile" 
+          element={user ? <ProfileSettingsPage /> : <Navigate to="/login" replace />} 
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

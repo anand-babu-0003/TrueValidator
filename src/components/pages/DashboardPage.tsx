@@ -3,29 +3,16 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { User, FileText, Upload, Settings, LogOut, CheckCircle, XCircle } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
+import { useDashboardStore } from '../../store/dashboardStore';
 import { supabase } from '../../lib/supabase';
-
-interface Profile {
-  id: string;
-  full_name: string;
-  avatar_url: string | null;
-}
-
-interface FileHistory {
-  id: string;
-  filename: string;
-  processed_at: string;
-  status: string;
-  total_emails: number;
-  valid_emails: number;
-  invalid_emails: number;
-}
+import type { Profile } from '../../types/dashboard';
+import Papa from 'papaparse';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuthStore();
+  const { fileHistory, fetchFileHistory, addFileHistory } = useDashboardStore();
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [fileHistory, setFileHistory] = useState<FileHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -49,14 +36,7 @@ const DashboardPage: React.FC = () => {
         if (error) throw error;
         setProfile(data);
 
-        const { data: historyData, error: historyError } = await supabase
-          .from('file_history')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('processed_at', { ascending: false });
-
-        if (historyError) throw historyError;
-        setFileHistory(historyData || []);
+        await fetchFileHistory(user.id);
       } catch (error) {
         console.error('Error fetching profile:', error);
       } finally {
@@ -65,7 +45,7 @@ const DashboardPage: React.FC = () => {
     };
 
     fetchProfile();
-  }, [user, navigate]);
+  }, [user, navigate, fetchFileHistory]);
 
   const handleSignOut = async () => {
     try {
@@ -77,47 +57,37 @@ const DashboardPage: React.FC = () => {
   };
 
   const processCSV = async (file: File) => {
-    const reader = new FileReader();
-    
-    reader.onload = async (e) => {
-      const text = e.target?.result as string;
-      const lines = text.split('\n');
-      const emails = lines
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
-      
-      const totalEmails = emails.length;
-      const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const validEmails = emails.filter(email => validEmailRegex.test(email)).length;
-      
-      try {
-        const { error } = await supabase
-          .from('file_history')
-          .insert({
-            user_id: user?.id,
-            filename: file.name,
-            status: 'completed',
-            total_emails: totalEmails,
-            valid_emails: validEmails,
-            invalid_emails: totalEmails - validEmails
-          });
+    return new Promise<void>((resolve, reject) => {
+      Papa.parse(file, {
+        complete: async (results) => {
+          try {
+            const emails = results.data
+              .map(row => (Array.isArray(row) ? row[0] : row).toString().trim())
+              .filter(email => email.length > 0);
+            
+            const totalEmails = emails.length;
+            const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const validEmails = emails.filter(email => validEmailRegex.test(email)).length;
+            
+            await addFileHistory({
+              user_id: user!.id,
+              filename: file.name,
+              status: 'completed',
+              total_emails: totalEmails,
+              valid_emails: validEmails,
+              invalid_emails: totalEmails - validEmails
+            });
 
-        if (error) throw error;
-
-        // Refresh file history
-        const { data: historyData } = await supabase
-          .from('file_history')
-          .select('*')
-          .eq('user_id', user?.id)
-          .order('processed_at', { ascending: false });
-
-        setFileHistory(historyData || []);
-      } catch (error) {
-        console.error('Error processing file:', error);
-      }
-    };
-
-    reader.readAsText(file);
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        },
+        error: (error) => {
+          reject(error);
+        }
+      });
+    });
   };
 
   const handleFileUpload = async (file: File) => {
@@ -130,7 +100,6 @@ const DashboardPage: React.FC = () => {
     setUploadProgress(0);
 
     try {
-      // Simulate upload progress
       const interval = setInterval(() => {
         setUploadProgress(prev => {
           if (prev >= 90) {
@@ -143,7 +112,6 @@ const DashboardPage: React.FC = () => {
 
       await processCSV(file);
 
-      // Complete the progress bar
       clearInterval(interval);
       setUploadProgress(100);
       setTimeout(() => {

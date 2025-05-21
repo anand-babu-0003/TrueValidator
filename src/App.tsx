@@ -6,6 +6,7 @@ import DocsPage from './components/pages/DocsPage';
 import AboutPage from './components/pages/AboutPage';
 import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
+import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import DashboardPage from './components/pages/DashboardPage';
 import ProfileSettingsPage from './components/pages/ProfileSettingsPage';
 import Layout from './components/layout/Layout';
@@ -46,6 +47,10 @@ function App() {
         <Route 
           path="/login" 
           element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} 
+        />
+        <Route 
+          path="/forgot-password" 
+          element={user ? <Navigate to="/dashboard" replace /> : <ForgotPasswordPage />} 
         />
         <Route 
           path="/dashboard" 

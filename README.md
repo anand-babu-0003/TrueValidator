@@ -1,4 +1,4 @@
-
+``
 ## TrueValidator
 
 TrueValidator is a comprehensive, industry-leading email validation service engineered to maximize your email deliverability and safeguard your sender reputation. By leveraging advanced algorithms and real-time data sources, TrueValidator empowers businesses to maintain pristine email lists, minimize bounce rates, and optimize the performance of their email marketing campaigns.
@@ -16,7 +16,7 @@ TrueValidator is a comprehensive, industry-leading email validation service engi
 
 To start using TrueValidator, follow these steps:
 
-1. **Sign Up**: Register for an account at [truevalidator.net](https://truevalidator.net) to receive your unique API key.
+1. **Sign Up**: Register for an account at [truevalidator.ai](https://truevalidator.ai) to receive your unique API key.
 2. **Integrate the Client**: Add TrueValidator to your application using our official SDKs or REST API.
 3. **Start Validating**: Use our endpoints to validate emails in real time or in bulk, and monitor results via the dashboard.
 
@@ -80,7 +80,7 @@ app.post('/webhook/validation', (req, res) => {
 ## 📚 Documentation
 
 Explore our comprehensive API documentation for details on authentication, endpoints, response formats, error handling, and integration examples:  
-👉 [API Docs](https://truevalidator.net/docs)
+👉 [API Docs](https://truevalidator.ai/docs)
 
 ## 💰 Pricing
 
@@ -138,8 +138,8 @@ Absolutely. We are fully GDPR compliant and prioritize data privacy and security
 
 Need help with integration or have questions?
 
-- 📧 Email: [support@truevalidator.net](mailto:support@truevalidator.net)
-- 💬 Join our [Developer Community](https://truevalidator.net/community) for peer support and updates
+- 📧 Email: [support@truevalidator.ai](mailto:support@truevalidator.ai)
+- 💬 Join our [Developer Community](https://truevalidator.ai/community) for peer support and updates
 
 ## ✅ Conclusion
 
@@ -147,7 +147,7 @@ TrueValidator is your all-in-one solution for email validation. Whether you need
 
 ---
 
-**Start your free trial today at [truevalidator.net](https://truevalidator.net) and experience the difference!**
+**Start your free trial today at [truevalidator.ai](https://truevalidator.ai) and experience the difference!**
 
 
 Want to contribute? Let us know if you need a `package.json`, license file, or contributor guide for this project!

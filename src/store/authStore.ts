@@ -10,6 +10,8 @@ interface AuthState {
   signOut: () => Promise<void>;
   setUser: (user: User | null) => void;
   updateProfile: (data: { full_name?: string; avatar_url?: string }) => Promise<void>;
+  sendOTP: (email: string) => Promise<void>;
+  verifyOTP: (email: string, token: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -51,6 +53,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .update(data)
       .eq('id', user.id);
 
+    if (error) throw error;
+  },
+  sendOTP: async (email: string) => {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: false,
+      },
+    });
+    if (error) throw error;
+  },
+  verifyOTP: async (email: string, token: string) => {
+    const { error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type: 'email',
+    });
     if (error) throw error;
   },
 }));

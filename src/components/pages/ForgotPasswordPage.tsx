@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, ArrowRight, AlertCircle, X } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import { useAuthStore } from '../../store/authStore';
 
 const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
+  const { sendOTP, verifyOTP } = useAuthStore();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -20,14 +21,7 @@ const ForgotPasswordPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          shouldCreateUser: false,
-        },
-      });
-
-      if (error) throw error;
+      await sendOTP(email);
       setShowOtpInput(true);
       setSuccess(true);
     } catch (err) {
@@ -43,13 +37,7 @@ const ForgotPasswordPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const { error: verifyError } = await supabase.auth.verifyOtp({
-        email,
-        token: otp,
-        type: 'email',
-      });
-
-      if (verifyError) throw verifyError;
+      await verifyOTP(email, otp);
 
       const { error: updateError } = await supabase.auth.updateUser({
         password: newPassword,

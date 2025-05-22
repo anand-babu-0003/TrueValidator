@@ -7,6 +7,7 @@ import AboutPage from './components/pages/AboutPage';
 import SignupPage from './components/pages/SignupPage';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
+import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import DashboardPage from './components/pages/DashboardPage';
 import ProfileSettingsPage from './components/pages/ProfileSettingsPage';
 import Layout from './components/layout/Layout';
@@ -51,6 +52,10 @@ function App() {
         <Route 
           path="/forgot-password" 
           element={user ? <Navigate to="/dashboard" replace /> : <ForgotPasswordPage />} 
+        />
+        <Route 
+          path="/reset-password" 
+          element={<ResetPasswordPage />} 
         />
         <Route 
           path="/dashboard" 

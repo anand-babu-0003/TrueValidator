@@ -1,45 +1,36 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, ArrowRight, AlertCircle, X } from 'lucide-react';
-import { useAuthStore } from '../../store/authStore';
+import { Mail, Lock, ArrowRight, AlertCircle, X } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
-  const { sendOTP, verifyOTP, resetPassword } = useAuthStore();
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleSendOTP = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      await sendOTP(email);
-      setShowOtpInput(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send OTP');
-    } finally {
-      setLoading(false);
-    }
-  };
+      const { error } = await supabase.auth.updateUser({
+        email,
+        password,
+      });
 
-  const handleVerifyOTP = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      await verifyOTP(email, otp);
-      await resetPassword(newPassword);
-      navigate('/login', { replace: true });
+      if (error) throw error;
+      
+      setSuccess(true);
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to verify OTP');
+      setError(err instanceof Error ? err.message : 'Failed to reset password');
     } finally {
       setLoading(false);
     }
@@ -64,10 +55,7 @@ const ForgotPasswordPage: React.FC = () => {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Reset Password</h1>
             <p className="mt-2 text-gray-600">
-              {!showOtpInput 
-                ? "Enter your email to receive a verification code"
-                : "Enter the verification code and your new password"
-              }
+              Enter your email and new password
             </p>
           </div>
 
@@ -78,8 +66,14 @@ const ForgotPasswordPage: React.FC = () => {
             </div>
           )}
 
-          {!showOtpInput ? (
-            <form onSubmit={handleSendOTP} className="space-y-6">
+          {success ? (
+            <div className="text-center">
+              <div className="mb-6 p-4 bg-green-50 border border-green-100 text-green-700 rounded-lg">
+                Password reset successful! Redirecting to login...
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email Address
@@ -98,56 +92,23 @@ const ForgotPasswordPage: React.FC = () => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-70"
-              >
-                {loading ? (
-                  <span className="flex items-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
-                    Sending...
-                  </span>
-                ) : (
-                  <>
-                    Send Verification Code
-                    <ArrowRight size={20} className="ml-2" />
-                  </>
-                )}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleVerifyOTP} className="space-y-6">
               <div>
-                <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-1">
-                  Verification Code
-                </label>
-                <input
-                  type="text"
-                  id="otp"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter 6-digit code"
-                  required
-                  maxLength={6}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   New Password
                 </label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter new password"
-                  required
-                  minLength={6}
-                />
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="••••••••"
+                    required
+                    minLength={6}
+                  />
+                </div>
               </div>
 
               <button
@@ -158,7 +119,7 @@ const ForgotPasswordPage: React.FC = () => {
                 {loading ? (
                   <span className="flex items-center">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
-                    Verifying...
+                    Resetting...
                   </span>
                 ) : (
                   <>

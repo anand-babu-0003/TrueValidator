@@ -12,13 +12,14 @@ interface AuthState {
   updateProfile: (data: { full_name?: string; avatar_url?: string }) => Promise<void>;
   sendOTP: (email: string) => Promise<void>;
   verifyOTP: (email: string, token: string) => Promise<void>;
+  resetPassword: (newPassword: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   loading: true,
   signUp: async (email: string, password: string, name: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -29,14 +30,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     });
     
     if (error) throw error;
+    if (data.user) set({ user: data.user });
   },
   signIn: async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     
     if (error) throw error;
+    if (data.user) set({ user: data.user });
   },
   signOut: async () => {
     const { error } = await supabase.auth.signOut();
@@ -50,7 +53,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     const { error } = await supabase
       .from('profiles')
-      .update(data)
+      .update({
+        ...data,
+        updated_at: new Date().toISOString(),
+      })
       .eq('id', user.id);
 
     if (error) throw error;
@@ -69,6 +75,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       email,
       token,
       type: 'email',
+    });
+    if (error) throw error;
+  },
+  resetPassword: async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
     });
     if (error) throw error;
   },

@@ -3,16 +3,14 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, ArrowRight, AlertCircle, X } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
-import { supabase } from '../../lib/supabase';
 
 const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
-  const { sendOTP, verifyOTP } = useAuthStore();
+  const { sendOTP, verifyOTP, resetPassword } = useAuthStore();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showOtpInput, setShowOtpInput] = useState(false);
 
@@ -24,7 +22,6 @@ const ForgotPasswordPage: React.FC = () => {
     try {
       await sendOTP(email);
       setShowOtpInput(true);
-      setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send OTP');
     } finally {
@@ -39,14 +36,8 @@ const ForgotPasswordPage: React.FC = () => {
 
     try {
       await verifyOTP(email, otp);
-
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
-
-      if (updateError) throw updateError;
-
-      navigate('/login');
+      await resetPassword(newPassword);
+      navigate('/login', { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to verify OTP');
     } finally {
